@@ -1,0 +1,1 @@
+/home/sachinmamoru/.agent-config/AGENTS.md

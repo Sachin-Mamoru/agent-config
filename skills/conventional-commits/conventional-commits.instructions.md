@@ -1,0 +1,1 @@
+/home/sachinmamoru/.agent-config/skills/conventional-commits/SKILL.md

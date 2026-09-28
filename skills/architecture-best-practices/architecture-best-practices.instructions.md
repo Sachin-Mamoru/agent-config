@@ -1,0 +1,1 @@
+/home/sachinmamoru/.agent-config/skills/architecture-best-practices/SKILL.md
