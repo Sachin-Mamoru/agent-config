@@ -1,1 +1,1 @@
-/home/sachinmamoru/.agent-config/skills/terraform-review/SKILL.md
+SKILL.md

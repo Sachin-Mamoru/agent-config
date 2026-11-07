@@ -1,3 +1,9 @@
+---
+name: git-hands-off
+description: >
+  Never commit, push, merge, rebase-continue, tag, or create/close/merge PRs or MRs in a project repo, and don't offer those as options; resolve, prepare, and hand back. Use whenever a task touches git state (conflicts, branches, landing a change) or would end in a commit or push. An explicit, specific user request for that step overrides this default.
+---
+
 # Git Hands-Off — commit/push/merge/land is Sachin's job, not mine
 
 ## The rule

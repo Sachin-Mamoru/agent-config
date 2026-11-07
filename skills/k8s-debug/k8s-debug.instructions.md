@@ -1,1 +1,1 @@
-/home/sachinmamoru/.agent-config/skills/k8s-debug/SKILL.md
+SKILL.md

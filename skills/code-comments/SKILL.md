@@ -1,3 +1,9 @@
+---
+name: code-comments
+description: >
+  Default to no comments in generated code; add one only for a hidden constraint, non-obvious invariant, bug workaround, or surprising behaviour, and re-read every comment and docstring in the diff before calling a task done. Use whenever writing or editing code in any repo or language.
+---
+
 # Minimal Code Comments
 
 ## The rule

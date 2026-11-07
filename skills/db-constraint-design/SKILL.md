@@ -1,10 +1,12 @@
 ---
 name: db-constraint-design
 description: >
-  How to design or review a UNIQUE constraint/index in Postgres (fdm-be, udp-celery) so it
-  actually enforces what it's meant to — especially partial indexes using postgresql_where.
-  Use whenever writing or reviewing an Alembic migration that adds/changes a unique constraint,
-  or an application-level duplicate/conflict pre-check that's supposed to mirror one.
+  How to design or review a UNIQUE constraint/index in Postgres so it actually enforces what
+  it's meant to — especially partial constraints (Alembic postgresql_where, Django
+  UniqueConstraint(condition=...)). Use whenever writing or reviewing an Alembic or Django
+  migration that adds/changes a unique constraint or index, or an application-level
+  duplicate/conflict pre-check (serializer validator, get_or_create, exists() check) that's
+  supposed to mirror one.
 ---
 
 # Postgres Unique Constraint Design — fdm-be / udp-celery
@@ -93,6 +95,29 @@ For `uq_project_assets_file_name`:
   test, not just the happy path.
 - Don't skip this for constraints that "look simple" — this exact mistake happened on a
   two-column-turned-three-column index, not something exotic.
+
+## Django equivalent
+
+The same two questions apply to `Meta.constraints`:
+
+```python
+models.UniqueConstraint(
+    fields=["project", "file_type", "file_name"],          # key: what must be unique
+    condition=Q(file_type__isnull=False),                  # scope: which rows are checked
+    name="uq_project_assets_file_name",
+)
+```
+
+- `condition=` is the `postgresql_where` equivalent: scope, not identity.
+- `nulls_distinct=False` (Django 5.0+, PostgreSQL 15+) makes NULLs collide; by default two
+  rows with NULL in a key column never conflict. Check the installed versions first.
+- App-level mirrors in Django: DRF `UniqueTogetherValidator` / `UniqueValidator`, a
+  serializer `validate()` doing `.exists()`, or `get_or_create(...)` lookups. Each must filter
+  on exactly the constraint's key columns. Keep the constraint as the real guard: catch
+  `IntegrityError` for the race the pre-check can't close.
+- Adding a unique constraint to a large existing table builds an index under lock. Check for
+  existing duplicates first, and consider building the index concurrently (see
+  `django-orm-performance` → postgres-investigation).
 
 ## See also
 

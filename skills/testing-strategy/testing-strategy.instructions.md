@@ -1,1 +1,1 @@
-/home/sachinmamoru/.agent-config/skills/testing-strategy/SKILL.md
+SKILL.md
