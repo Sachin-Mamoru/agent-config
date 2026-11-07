@@ -1,1 +1,1 @@
-/home/sachinmamoru/.agent-config/skills/secret-guard/SKILL.md
+SKILL.md

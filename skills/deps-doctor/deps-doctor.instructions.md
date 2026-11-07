@@ -1,1 +1,1 @@
-/home/sachinmamoru/.agent-config/skills/deps-doctor/SKILL.md
+SKILL.md

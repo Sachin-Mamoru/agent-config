@@ -2,8 +2,20 @@
 
 Distilled from ponytail (DietrichGebert/ponytail) and karpathy-guidelines
 (forrestchang/andrej-karpathy-skills), both MIT-licensed. Applies to every
-coding task in every project, merged with (not overriding) project-specific
-CLAUDE.md/AGENTS.md/skill instructions.
+coding task in every project as the base layer.
+
+## 0. Precedence — the most specific instruction wins
+
+1. The repo being changed: its `CLAUDE.md`/`AGENTS.md`, the docs they point to, and its
+   own skills (`<repo>/.claude/skills/`). Read these before editing that repo.
+2. Team-shared tooling for that repo (shared skills/commands), when present.
+3. The workspace `CLAUDE.md` (multi-repo context, local-only rules).
+4. These rules and the agent-config skills — the generic fallback.
+
+When layers disagree, follow the more specific one and say which you followed. A base skill
+fills gaps (how to trace a request, how to test locking); it never overrides a repo's
+documented architecture, naming, testing or review conventions. Run `/ready` to load and
+confirm the layers at the start of a task.
 
 ## 1. Understand before you climb
 
@@ -121,25 +133,15 @@ check against it while writing under load. Before calling a coding task done, re
 comment/docstring you added in this diff as its own pass — same discipline as running the
 lint/type/test commands below, not a rule to remember mid-write.
 
-**fdm-be / udp-celery:**
+**Which checks:** the project's own — from its `CLAUDE.md`/`AGENTS.md`, README, CI config
+and pre-commit hooks, in that order. Run the narrowest relevant subset first (the touched
+test module), then what CI runs before calling it done. Project-specific command lists live
+in that project's docs or a project skill (e.g. `python-testing` for fdm-be/udp-celery,
+`web-frontend-architecture` for web), not here.
 
-aws-vault exec developer -- uv run ruff check --fix .
-aws-vault exec developer -- uv run ruff format .
-aws-vault exec developer -- uv run mypy
-aws-vault exec developer -- uv run pytest tests/
-
-Or all pre-commit hooks at once: `aws-vault exec developer -- uv run pre-commit run --all-files`
-
-Note: `aws-vault exec` needs an interactive MFA prompt (same constraint as Terraform —
-see `terraform-review` skill). If no session is cached, these commands will hang/fail
-in a non-interactive context — say so rather than silently skipping verification.
-
-**web:**
-
-npm run lint # oxlint + stylelint, autofix
-npm run test # Jest, silent mode
-npm run ts-coverage # type coverage
-
+If a check needs something unavailable in this session (an interactive MFA/aws-vault prompt,
+a service that isn't running, network access), say exactly which check didn't run and why —
+never skip it silently.
 
 If a check fails, fix and re-run rather than reporting the task done with a known
 failure — unless the failure is pre-existing and unrelated to this change, in which

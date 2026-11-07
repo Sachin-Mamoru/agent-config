@@ -1,1 +1,1 @@
-/home/sachinmamoru/.agent-config/skills/pr-storyteller/SKILL.md
+SKILL.md

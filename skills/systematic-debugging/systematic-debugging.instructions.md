@@ -1,1 +1,1 @@
-/home/sachinmamoru/.agent-config/skills/systematic-debugging/SKILL.md
+SKILL.md

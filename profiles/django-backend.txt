@@ -1,0 +1,23 @@
+# Skills linked into a Python/Django/DRF backend workspace by scripts/install.sh.
+# One skill directory name per line. Lines starting with # are ignored.
+# Project-specific skills from other codebases (fdm-be-*, okra-kit, web-*, ...) are
+# deliberately left out so they never load into an unrelated workspace.
+
+# Workspace bootstrap
+ready
+
+# Django / DRF backend work
+django-drf-api
+django-orm-performance
+django-transactions-jobs
+django-testing
+django-backend-review
+
+# Generic engineering discipline
+systematic-debugging
+invariant-verification
+db-constraint-design
+architecture-best-practices
+code-comments
+git-hands-off
+chat-message-voice
